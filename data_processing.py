@@ -41,9 +41,17 @@ def get_data():
     return data
 
 
+def parse_tuple_string(tuple_string):
+    array_string = "[" + tuple_string + "]"
+    return make_tuple(array_string)
+
+
 def read_coordinates(row):
     coordinates = list(row[1:19])
-    coordinates = list(map(lambda x: make_tuple(x) if isinstance(x, str) else None, coordinates))
+    coordinates = list(map(lambda x: parse_tuple_string(x) if isinstance(x, str) else [], coordinates))
+    if isinstance(coordinates, tuple):
+        x = 3
+
     return coordinates_reader.transform_coordinates(coordinates)
 
 
